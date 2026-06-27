@@ -4,24 +4,19 @@ const BACKEND = process.env.BACKEND_URL || "http://127.0.0.1:8000";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const category = searchParams.get("category") || "all";
-  const limit = searchParams.get("limit") || "50";
-
+  const text = searchParams.get("text") || "";
   try {
     const res = await fetch(
-      `${BACKEND}/api/news?category=${category}&limit=${limit}`,
+      `${BACKEND}/api/sentiment/analyze?text=${encodeURIComponent(text)}`,
       { cache: "no-store" }
     );
     if (!res.ok) {
-      return NextResponse.json({ error: "Backend error", articles: [] }, { status: 502 });
+      return NextResponse.json({ error: "Backend error" }, { status: 502 });
     }
     const data = await res.json();
     return NextResponse.json(data);
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : "unknown";
-    return NextResponse.json(
-      { error: `Cannot reach backend: ${msg}`, articles: [] },
-      { status: 503 }
-    );
+    return NextResponse.json({ error: msg }, { status: 503 });
   }
 }

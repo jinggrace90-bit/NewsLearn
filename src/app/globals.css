@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    --bg-primary: #0b1219;
+    --bg-secondary: #111d27;
+    --bg-card: #162230;
+    --bg-card-hover: #1c2d3e;
+    --text-primary: #e8edf2;
+    --text-secondary: #8fa3b8;
+    --text-muted: #5a7189;
+    --accent: #2d8a56;
+    --accent-hover: #237044;
+    --accent-light: #3aad6a;
+    --gold: #d4a843;
+    --gold-hover: #c49a35;
+    --gold-dim: rgba(212, 168, 67, 0.12);
+    --green: #38c97a;
+    --green-bg: rgba(56, 201, 122, 0.1);
+    --red: #e85454;
+    --red-bg: rgba(232, 84, 84, 0.1);
+    --yellow: #d4a843;
+    --yellow-bg: rgba(212, 168, 67, 0.1);
+    --border: #1e3044;
+    --border-light: #2a4259;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
 }
